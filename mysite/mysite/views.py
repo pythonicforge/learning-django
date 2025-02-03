@@ -3,28 +3,38 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse('''<h2>Home Page</h2>
-    <p>This is the home page</p>
+    return HttpResponse('''<h2>Welcome to Text-Utils</h2>
+    <p>Perform various operations on text</p>
     <ul>
-    <li><a href="/about/">About</a></li>
-    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/remove-punctuation/">Remove Punctuation</a></li>
+    <li><a href="/capitalize-first/">Capitalize First</a></li>
+    <li><a href="/newline-remover/">Remove NewLines</a></li>
+    <li><a href="/space-remover/">Remove Spaces</a></li>
+    <li><a href="/char-count/">Count Number of Characters</a></li>
     </ul>
     ''')
 
-def about(request):
-    return HttpResponse('''<h2>About Page</h2>
-    <p>This is the about page</p>
-    <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/projects/">Projects</a></li>
-    </ul>
+def remove_punctuation(request):
+    return HttpResponse('''<h2>Remove All Punctuations</h2>
+    <a href="/">Go Back</a>
     ''')
 
-def projects(request):
-    return HttpResponse('''<h2>Projects Page</h2>
-    <p>This is the projects page</p>
-    <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about/">About</a></li>
-    </ul>
+def capitalize_first(request):
+    return HttpResponse('''<h2>Capitalize First Letter</h2>
+    <a href="/">Go Back</a>
+    ''')
+
+def newline_remover(request):
+    return HttpResponse('''<h2>Remove All NewLines</h2>
+    <a href="/">Go Back</a>
+    ''')
+
+def space_remover(request):
+    return HttpResponse('''<h2>Remove All Spaces</h2>
+    <a href="/">Go Back</a>
+    ''')
+
+def char_count(request):
+    return HttpResponse('''<h2>Count Number of Characters</h2>
+    <a href="/">Go Back</a>
     ''')
