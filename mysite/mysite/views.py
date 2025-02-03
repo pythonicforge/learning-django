@@ -8,7 +8,8 @@ def home(request):
     return render(request, 'index.html', citations)
 
 def remove_punctuation(request):
-    return render(request, 'remove_punctuation.html')
+    text = request.GET.get('text', '')
+    return render(request, 'remove_punctuation.html', {'analyzedText': text})
 
 def capitalize_first(request):
     return render(request, 'capitalize_first.html')
