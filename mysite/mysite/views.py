@@ -1,40 +1,23 @@
 # This file was not created by Django but by Hardik Jaiswal
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def home(request):
-    return HttpResponse('''<h2>Welcome to Text-Utils</h2>
-    <p>Perform various operations on text</p>
-    <ul>
-    <li><a href="/remove-punctuation/">Remove Punctuation</a></li>
-    <li><a href="/capitalize-first/">Capitalize First</a></li>
-    <li><a href="/newline-remover/">Remove NewLines</a></li>
-    <li><a href="/space-remover/">Remove Spaces</a></li>
-    <li><a href="/char-count/">Count Number of Characters</a></li>
-    </ul>
-    ''')
+    citations = {'author': 'Hardik Jaiswal'}
+    return render(request, 'index.html', citations)
 
 def remove_punctuation(request):
-    return HttpResponse('''<h2>Remove All Punctuations</h2>
-    <a href="/">Go Back</a>
-    ''')
+    return render(request, 'remove_punctuation.html')
 
 def capitalize_first(request):
-    return HttpResponse('''<h2>Capitalize First Letter</h2>
-    <a href="/">Go Back</a>
-    ''')
+    return render(request, 'capitalize_first.html')
 
 def newline_remover(request):
-    return HttpResponse('''<h2>Remove All NewLines</h2>
-    <a href="/">Go Back</a>
-    ''')
+    return render(request, 'newline_remover.html')
 
 def space_remover(request):
-    return HttpResponse('''<h2>Remove All Spaces</h2>
-    <a href="/">Go Back</a>
-    ''')
+    return render(request, 'space_remover.html')
 
 def char_count(request):
-    return HttpResponse('''<h2>Count Number of Characters</h2>
-    <a href="/">Go Back</a>
-    ''')
+    return render(request, 'char_count.html')
