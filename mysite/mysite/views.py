@@ -7,18 +7,50 @@ def home(request):
     citations = {'author': 'Hardik Jaiswal'}
     return render(request, 'index.html', citations)
 
-def remove_punctuation(request):
+def analyse_text(request):
     text = request.GET.get('text', '')
-    return render(request, 'remove_punctuation.html', {'analyzedText': text})
+    operation = request.GET.get('operation', 'off')
 
-def capitalize_first(request):
-    return render(request, 'capitalize_first.html')
+    if operation == 'removepunc':
+        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        analyzed = ''
+        for char in text:
+            if char not in punctuations:
+                analyzed = analyzed + char
+        text = analyzed
+    if operation == 'capitalize':
+        analyzed = ''
+        for char in text:
+            analyzed = analyzed + char.upper()
+        text = analyzed
+    if operation == 'newlineremover':
+        analyzed = ''
+        for char in text:
+            if char != '\n' and char != '\r':
+                analyzed = analyzed + char
+        text = analyzed
+    if operation == 'spaceremover':
+        analyzed = ''
+        for index, char in enumerate(text):
+            if not (text[index] == ' ' and text[index+1] == ' '):
+                analyzed = analyzed + char
+        text = analyzed
+    if operation == 'charcount':
+        analyzed = ''
+        for char in text:
+            analyzed = analyzed + char
+        text = len(analyzed)
 
-def newline_remover(request):
-    return render(request, 'newline_remover.html')
+    purpose = ""
+    if operation == 'removepunc':
+        purpose = "Removed Punctuations"
+    if operation == 'capitalize':
+        purpose = "Capitalized Text"
+    if operation == 'newlineremover':
+        purpose = "Removed New Lines"
+    if operation == 'spaceremover':
+        purpose = "Removed Extra Spaces"
+    if operation == 'charcount':
+        purpose = "Counted Characters"
 
-def space_remover(request):
-    return render(request, 'space_remover.html')
-
-def char_count(request):
-    return render(request, 'char_count.html')
+    return render(request, 'analyse_text.html', {'analyzedText': text, 'purpose': purpose})

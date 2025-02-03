@@ -22,9 +22,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('remove-punctuation/', views.remove_punctuation, name='remove-punctuation'),
-    path('capitalize-first/', views.capitalize_first, name='capitalize-first'),
-    path('newline-remover/', views.newline_remover, name='newline-remover'),
-    path('space-remover/', views.space_remover, name='space-remover'),
-    path('char-count/', views.char_count, name='char-count'),
+    path('analyse-text/', views.analyse_text, name='analyse-text'),
 ]
