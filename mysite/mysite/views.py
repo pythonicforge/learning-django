@@ -1,7 +1,4 @@
-# This file was not created by Django but by Hardik Jaiswal
-from django.http import HttpResponse
 from django.shortcuts import render
-
 
 def home(request):
     citations = {'author': 'Hardik Jaiswal'}
@@ -9,48 +6,32 @@ def home(request):
 
 def analyse_text(request):
     text = request.GET.get('text', '')
-    operation = request.GET.get('operation', 'off')
+    operations = request.GET.getlist('operation', [])
+    analyzed = text
 
-    if operation == 'removepunc':
+    if 'removepunc' in operations:
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
-        analyzed = ''
-        for char in text:
-            if char not in punctuations:
-                analyzed = analyzed + char
-        text = analyzed
-    if operation == 'capitalize':
-        analyzed = ''
-        for char in text:
-            analyzed = analyzed + char.upper()
-        text = analyzed
-    if operation == 'newlineremover':
-        analyzed = ''
-        for char in text:
-            if char != '\n' and char != '\r':
-                analyzed = analyzed + char
-        text = analyzed
-    if operation == 'spaceremover':
-        analyzed = ''
-        for index, char in enumerate(text):
-            if not (text[index] == ' ' and text[index+1] == ' '):
-                analyzed = analyzed + char
-        text = analyzed
-    if operation == 'charcount':
-        analyzed = ''
-        for char in text:
-            analyzed = analyzed + char
-        text = len(analyzed)
+        analyzed = ''.join(char for char in analyzed if char not in punctuations)
 
-    purpose = ""
-    if operation == 'removepunc':
-        purpose = "Removed Punctuations"
-    if operation == 'capitalize':
-        purpose = "Capitalized Text"
-    if operation == 'newlineremover':
-        purpose = "Removed New Lines"
-    if operation == 'spaceremover':
-        purpose = "Removed Extra Spaces"
-    if operation == 'charcount':
-        purpose = "Counted Characters"
+    if 'capitalize' in operations:
+        analyzed = analyzed.upper()
 
-    return render(request, 'analyse_text.html', {'analyzedText': text, 'purpose': purpose})
+    if 'newlineremover' in operations:
+        analyzed = analyzed.replace('\n', '').replace('\r', '')
+
+    if 'spaceremover' in operations:
+        analyzed = ' '.join(analyzed.split())
+
+    purposes = []
+    if 'removepunc' in operations:
+        purposes.append("Removed Punctuations")
+    if 'capitalize' in operations:
+        purposes.append("Capitalized Text")
+    if 'newlineremover' in operations:
+        purposes.append("Removed New Lines")
+    if 'spaceremover' in operations:
+        purposes.append("Removed Extra Spaces")
+
+    purpose = " and ".join(purposes) if purposes else "No Operation Performed"
+    
+    return render(request, 'analyse_text.html', {'analyzedText': analyzed, 'purpose': purpose})
