@@ -22,7 +22,8 @@
         <p class="lead text-center mb-5">Perform various operations on text.</p>
       </div>
 
-      <form action="/analyse-text" method="get" class="p-4 border rounded">
+      <form action="/analyse-text/" method="post" class="p-4 border rounded">
+        {% csrf_token %}
         <div class="form-floating mb-3">
           <textarea
             name="text"
